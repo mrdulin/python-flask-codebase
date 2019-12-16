@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>user profile</title>
+  </head>
+  <body>
+    <img src="{{url_for('static', filename='avatar.jpeg')}}" width="50px"></img>
+    <p>username: {{user.username}}</p>
+    {% if user.bio %}
+    <p>bio: {{user.bio}}</p>
+    {% else %}
+    <p>bio: this user has no bio</p>
+    {% endif %}
+    <a href="{{url_for('home')}}">Return to Home</a>
+  </body>
+</html>

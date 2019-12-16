@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+<br />
+{% block title %}Home{% endblock title %}
+<br />
+{%block style%} {{ super() }}
+<style>
+  .foo {
+    color: red;
+  }
+</style>
+{%endblock style%}
+<div>
+  {% block content %}
+  <span
+    >{% set navigations = [('/', 'Home'), ('/user_profile', 'User profile'), ('/test_flash', 'Flash something')]
+    %}</span
+  >
+  <ul>
+    {% for nav in navigations %}
+    <li><a href="{{nav[0]}}">{{nav[1]}}</a></li>
+    {% endfor %}
+  </ul>
+  <hr />
+  <p>safe markup:</p>
+  <div>{{text}}</div>
+  <hr />
+  <p>custom context:</p>
+  <p class="foo">foo: {{foo}}</p>
+  <p>bar: {{bar}}</p>
+  <hr />
+  <p>custom global function:</p>
+  <p>baz: {{baz()}}</p>
+  <p>current_time: {{current_time()}}</p>
+  <hr />
+  <p>filter:</p>
+  <p>{% filter upper %} this text becomes uppercase. {% endfilter %}</p>
+  <p>name: {{ 'mrdulin'|title }}</p>
+  <p>sex: {{ sex|default('unknown')|title }}</p>
+  <p>custom filter:</p>
+  <p>{{ 'mrdulin'|musical }}</p>
+  <hr />
+  <p>jinjia2 tests:</p>
+  <p>
+    {% if age is number %} {{ age * 365 }} {% else %} 无效的数字 {% endif %}
+  </p>
+  <hr />
+  <p>macro:</p>
+  <p>
+    {% from '_macro.html' import qux %}
+    <span>{{ qux(amount=5 )}}</span>
+  </p>
+  {% endblock content %}
+</div>
