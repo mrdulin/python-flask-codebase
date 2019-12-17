@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Login</title>
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <form method="post">
+      {{form.csrf_token}} <br />
+      {% for message in form.username.errors %}
+      <small class="error">{{message}}</small>
+      {% endfor %} <br />
+      {{form.username.label}}{{form.username}} <br />
+      {% for message in form.password.errors %}
+      <small class="error">{{message}}</small>
+      {% endfor %} <br />
+      {{form.password.label}}{{form.password}} <br />
+      {{form.remember}}{{form.remember.label}} <br />
+      {{form.submit}} <br />
+    </form>
+  </body>
+</html>
