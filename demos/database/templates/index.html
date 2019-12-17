@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Index</title>
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="https://cdn.bootcss.com/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+      .form-inline-block {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Notebook</h1>
+    {% for message in get_flashed_messages() %}
+    <p>{{message}}</p>
+    {% endfor %}
+    <a href="{{ url_for('new_note') }}">New note</a>
+
+    <h4>{{notes|length}} notes:</h4>
+    {% if notes|length > 0 %}
+    <ul>
+      {% for note in notes %}
+      <li>
+        <div>
+          <p>{{note.body}}</p>
+          <a href="{{ url_for('edit_note', id=note.id) }}" class="btn btn-default">edit</a>
+          <form class="form-inline-block" method="POST" action="{{ url_for('delete_note', id=note.id) }}">
+            {{form.csrf_token}} <br />
+            {{form.submit(class='btn btn-danger')}}
+          </form>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </body>
+</html>
