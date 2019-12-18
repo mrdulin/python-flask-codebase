@@ -6,17 +6,20 @@ from forms import NewNoteForm, EditNoteForm, DeleteNoteForm
 from flask.helpers import flash, url_for
 from werkzeug import abort, redirect
 from flask.templating import render_template
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv(
     'DATABASE_URL', 'sqlite:///' + os.path.join(app.root_path, 'data.db'))
 app.secret_key = 'secret string'
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text)
+    timestamp = db.Column(db.DateTime)
 
 
 class Author(db.Model):
@@ -91,8 +94,16 @@ def delete_note(id):
 
 
 @app.cli.command()
-def initdb():
-    """flask initdb
+@click.option('--drop', is_flag=True, help='Create all tables after drop all tables.')
+def initdb(drop):
+    """flask initdb [options]
+    options:
+    --drop drop all tables in database
     """
+    if drop:
+        click.confirm(
+            "This operation will delete the database, do you want to continue?", abort=True)
+        db.drop_all()
+        click.echo('Drop tables')
     db.create_all()
     click.echo('Initialized database')
