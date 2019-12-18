@@ -3,4 +3,5 @@ FLASK_ENV=development
 
 # FLASK_APP=demos/template/app
 # FLASK_APP=demos/form/app
-FLASK_APP=demos/database/app.py
+# FLASK_APP=demos/database/app.py
+FLASK_APP=demos/email/app.py

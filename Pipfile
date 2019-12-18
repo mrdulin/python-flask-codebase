@@ -13,6 +13,7 @@ python-dotenv = "*"
 flask-wtf = "*"
 flask-sqlalchemy = "*"
 flask-migrate = "*"
+flask-mail = "*"
 
 [requires]
 python_version = "3.7"
