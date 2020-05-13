@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>update contact</title>
+  </head>
+  <body></body>
+  <script>
+    function pushtodatabase(key, newvals) {
+      var xhttp = new XMLHttpRequest();
+      xhttp.open('POST', 'updatecontact', true);
+      var msg = { msg: newvals.join('|') };
+      var msgjson = JSON.stringify(msg);
+      xhttp.setRequestHeader('Content-type', 'application/json;charset=UTF-8');
+      xhttp.send(msgjson);
+
+      xhttp.addEventListener('load', reqListener);
+
+      console.log('xhttp.responseText:', xhttp.responseText);
+      console.log('xhttp.status:', xhttp.status);
+    }
+
+    function reqListener() {
+      console.log('this.responseText:', this.responseText);
+      console.log('this.status:', this.status);
+    }
+
+    window.onload = function () {
+      pushtodatabase('key,', ['a', 'b']);
+    };
+  </script>
+</html>
